@@ -17,9 +17,17 @@
     "php": "^5.5 || ^7.0",
     "overture/overture": "dev-master"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8"
+  },
   "autoload": {
     "psr-4": {
       "Overture\\FileSystemProvider\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Overture\\FileSystemProvider\\Tests\\": "tests/"
     }
   }
 }
