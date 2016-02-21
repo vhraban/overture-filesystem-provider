@@ -1,0 +1,19 @@
+{
+  "name": "overture/filesystem-provider",
+  "type": "library",
+  "description": "Overture Filesystem Provider",
+  "homepage": "https://github.com/vhraban/overture-filesystem-provider",
+  "keywords": [ "configuration", "php", "filesystem" ],
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vladimir Hraban",
+      "email": "vlad@vivec.co.uk",
+      "homepage": "http://www.vivec.co.uk"
+    }
+  ],
+  "require": {
+    "php": "^5.5 || ^7.0"
+  }
+}
