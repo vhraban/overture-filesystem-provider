@@ -30,5 +30,14 @@
     "psr-4": {
       "Overture\\FileSystemProvider\\Tests\\": "tests/"
     }
+  },
+  "scripts" : {
+    "lint": [
+      "find -L src tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l"
+    ],
+    "tests": [
+      "@lint",
+      "vendor/bin/phpunit"
+    ]
   }
 }
