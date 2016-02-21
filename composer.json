@@ -16,5 +16,10 @@
   "require": {
     "php": "^5.5 || ^7.0",
     "overture/overture": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Overture\\FileSystemProvider\\": "src/"
+    }
   }
 }
