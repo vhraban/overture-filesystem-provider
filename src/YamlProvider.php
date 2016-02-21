@@ -3,6 +3,7 @@ namespace Overture\FileSystemProvider;
 
 use Overture\Exception\MissingKeyException;
 use Overture\FileSystemProvider\Exception\InaccessibleFileException;
+use Overture\FileSystemProvider\Exception\MalformedYamlException;
 use Overture\OvertureProviderInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
@@ -24,12 +25,19 @@ class YamlProvider implements OvertureProviderInterface
      * @param string $yamlPath A path to Yaml file
      *
      * @throws ParseException If yaml file can not be parsed
+     * @throws MalformedYamlException if yaml file is malformed
      */
     public function __construct($yamlPath)
     {
         $parser = new Parser();
         $fileContents = $this->readfile($yamlPath);
         $this->valueContainer = $parser->parse($fileContents);
+
+        if(!is_array($this->valueContainer))
+        {
+            throw new MalformedYamlException("{$yamlPath} is malformed");
+        }
+
     }
 
     /**

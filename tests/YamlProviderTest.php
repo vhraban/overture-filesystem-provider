@@ -4,6 +4,7 @@ namespace Overture\FileSystemProvider\Tests;
 use Overture\Exception\MissingKeyException;
 use Overture\Exception\UnexpectedValueException;
 use Overture\FileSystemProvider\Exception\InaccessibleFileException;
+use Overture\FileSystemProvider\Exception\MalformedYamlException;
 use Overture\FileSystemProvider\YamlProvider;
 use PHPUnit_Framework_TestCase;
 
@@ -69,5 +70,17 @@ class YamlProviderTest extends PHPUnit_Framework_TestCase
         $provider->get("parameter.array");
 
         $this->deleteTestYml();
+    }
+
+    public function testMalformedYamlException()
+    {
+        $this->createTestYaml();
+
+        $this->setExpectedException(MalformedYamlException::class);
+
+        file_put_contents("/tmp/malformed.yml", "malformedyaml");
+        new YamlProvider("/tmp/malformed.yml");
+
+        unlink("/tmp/malformed.yml");
     }
 }
