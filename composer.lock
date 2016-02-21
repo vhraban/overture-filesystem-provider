@@ -1,0 +1,68 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "5a20861f9d37493e71afb02678ec1b91",
+    "content-hash": "04754cbc184e88894f2837dc55bc734e",
+    "packages": [
+        {
+            "name": "overture/overture",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vhraban/Overture.git",
+                "reference": "1aa3a12c55b0f8829ea66c111cee0b9d68c14e80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vhraban/Overture/zipball/1aa3a12c55b0f8829ea66c111cee0b9d68c14e80",
+                "reference": "1aa3a12c55b0f8829ea66c111cee0b9d68c14e80",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Overture\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir Hraban",
+                    "email": "vlad@vivec.co.uk",
+                    "homepage": "http://www.vivec.co.uk"
+                }
+            ],
+            "description": "Universal configuration tool",
+            "homepage": "https://github.com/vhraban/Overture",
+            "keywords": [
+                "configuration",
+                "php"
+            ],
+            "time": "2016-02-21 16:54:33"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "overture/overture": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^5.5 || ^7.0"
+    },
+    "platform-dev": []
+}
