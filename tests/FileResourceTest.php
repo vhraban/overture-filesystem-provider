@@ -30,7 +30,7 @@ EOD;
 
     protected function deleteTestYml()
     {
-        unlink(static::TEST_YML_FILENAME);
+        @unlink(static::TEST_YML_FILENAME);
     }
 
     public function testFileDoesNotExist()
