@@ -50,29 +50,8 @@ EOD;
         $provider = new YamlProvider($fileProvider);
         $actualValue = $provider->get("parameter.one");
         $this->assertEquals("1", $actualValue);
-
     }
 
-    public function testMissingKeyException()
-    {
-        $fileProvider = $this->mockYmlFileResource();
-
-        $this->setExpectedException(MissingKeyException::class);
-
-        $provider = new YamlProvider($fileProvider);
-        $provider->get("parameter.three");
-    }
-
-    public function testUnexpectedValueException()
-    {
-        $fileProvider = $this->mockYmlFileResource();
-
-        $this->setExpectedException(UnexpectedValueException::class);
-
-        $provider = new YamlProvider($fileProvider);
-        $provider->get("parameter.array");
-
-    }
 
     public function testMalformedYamlException()
     {
@@ -81,6 +60,5 @@ EOD;
         $this->setExpectedException(MalformedYamlException::class);
 
         new YamlProvider($fileProvider);
-
     }
 }

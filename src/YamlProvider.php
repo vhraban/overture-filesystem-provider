@@ -2,17 +2,15 @@
 namespace Overture\FileSystemProvider;
 
 use Overture\Exception\MissingKeyException;
+use Overture\Exception\UnexpectedValueException;
 use Overture\FileSystemProvider\Exception\MalformedYamlException;
 use Overture\OvertureProviderInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
-use Overture\Exception\UnexpectedValueException;
 
 class YamlProvider implements OvertureProviderInterface
 {
-    const KEY_NODE_DELIMITER = ".";
-
-    /** @var array Value container */
+    /** @var TraversableValueContainer Data container */
     protected $valueContainer;
 
     /**
@@ -28,13 +26,16 @@ class YamlProvider implements OvertureProviderInterface
     public function __construct(FileResource $fileResource)
     {
         $contents = $fileResource->getRawContents();
-        $parser = new Parser();
-        $this->valueContainer = $parser->parse($contents);
 
-        if(!is_array($this->valueContainer))
+        $parser = new Parser();
+        $arrayContainer = $parser->parse($contents);
+
+        if(!is_array($arrayContainer))
         {
             throw new MalformedYamlException("File is malformed");
         }
+
+        $this->valueContainer = new TraversableValueContainer($arrayContainer);
     }
 
     /**
@@ -42,54 +43,13 @@ class YamlProvider implements OvertureProviderInterface
      *
      * @param string $key The configuration key
      *
-     * @throws MissingKeyException if the path is unreachable
-     * @throws UnexpectedValueException if the path is key is missing
+     * @throws MissingKeyException if the key is missing
+     * @throws UnexpectedValueException if the returned value is not scalar
      *
      * @return string
      */
     public function get($key)
     {
-        $ret = $this->traverseValueContainer($key);
-        if(!is_scalar($ret))
-        {
-            throw new UnexpectedValueException("The {$key} configuration value is not scalar");
-        }
-        return $ret;
-    }
-
-    /**
-     * Traverse a value container until the end of path is reached
-     *
-     * $path can be separated with a dot .
-     *
-     * In an array [ "section" => ["a => "b"], ["b" => "B"]
-     *
-     * value B can be accessed by giving section.b key
-     *
-     * @param string $path The path
-     *
-     * @throws MissingKeyException if the path is unreachable
-     *
-     * @return string
-     */
-    protected function traverseValueContainer($path)
-    {
-        // before the travel current node is the root
-        $currentNode = $this->valueContainer;
-
-        $pathElements = explode(static::KEY_NODE_DELIMITER, $path);
-        foreach($pathElements as $node)
-        {
-            // Ensure the next child exists
-            if(!isset($currentNode[$node]))
-            {
-                throw new MissingKeyException("{$path} configuration value is not found");
-            }
-
-            //update the current path if the child existed
-            $currentNode = $currentNode[$node];
-        }
-
-        return $currentNode;
+        return $this->valueContainer->get($key);
     }
 }
