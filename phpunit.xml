@@ -19,5 +19,10 @@
         <log type="coverage-clover" target="reports/logs/clover.xml"/>
         <log type="coverage-crap4j" target="reports/logs/crap4j.xml"/>
         <log type="junit" target="reports/logs/junit.xml" logIncompleteSkipped="false"/>
-    </logging>
+    </logging>git st
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src/</directory>
+        </whitelist>
+    </filter>
 </phpunit>
