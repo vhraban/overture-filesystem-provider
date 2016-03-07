@@ -2,13 +2,11 @@
 namespace Overture\FileSystemProvider;
 
 use Overture\Exception\MissingKeyException;
-use Overture\FileSystemProvider\Exception\InaccessibleFileException;
 use Overture\FileSystemProvider\Exception\MalformedYamlException;
 use Overture\OvertureProviderInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
 use Overture\Exception\UnexpectedValueException;
-
 
 class YamlProvider implements OvertureProviderInterface
 {
@@ -22,22 +20,21 @@ class YamlProvider implements OvertureProviderInterface
      * Sets up the value container by reading the yaml file
      * from a given path
      *
-     * @param string $yamlPath A path to Yaml file
+     * @param FileResource $fileResource Initialsed FileResource
      *
      * @throws ParseException If yaml file can not be parsed
      * @throws MalformedYamlException if yaml file is malformed
      */
-    public function __construct($yamlPath)
+    public function __construct(FileResource $fileResource)
     {
+        $contents = $fileResource->getRawContents();
         $parser = new Parser();
-        $fileContents = $this->readfile($yamlPath);
-        $this->valueContainer = $parser->parse($fileContents);
+        $this->valueContainer = $parser->parse($contents);
 
         if(!is_array($this->valueContainer))
         {
-            throw new MalformedYamlException("{$yamlPath} is malformed");
+            throw new MalformedYamlException("File is malformed");
         }
-
     }
 
     /**
@@ -58,29 +55,6 @@ class YamlProvider implements OvertureProviderInterface
             throw new UnexpectedValueException("The {$key} configuration value is not scalar");
         }
         return $ret;
-    }
-
-    /**
-     * Read a file contents from a given path
-     * A simple wrapper around file_get_content
-     *
-     * @param string $filePath File path to read
-     *
-     * @throws InaccessibleFileException if the file can not be read
-     *
-     * @return string
-     */
-    protected function readFile($filePath)
-    {
-        // Supressing warnings is bad, but in this case checking the value
-        // returned from file_get_contents is enough
-
-        $contents = @file_get_contents($filePath);
-        if(false === $contents)
-        {
-            throw new InaccessibleFileException("Can not read configuration file {$filePath}");
-        }
-        return $contents;
     }
 
     /**

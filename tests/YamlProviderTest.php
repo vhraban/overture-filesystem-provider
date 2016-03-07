@@ -5,82 +5,82 @@ use Overture\Exception\MissingKeyException;
 use Overture\Exception\UnexpectedValueException;
 use Overture\FileSystemProvider\Exception\InaccessibleFileException;
 use Overture\FileSystemProvider\Exception\MalformedYamlException;
+use Overture\FileSystemProvider\FileResource;
 use Overture\FileSystemProvider\YamlProvider;
+use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
 
 class YamlProviderTest extends PHPUnit_Framework_TestCase
 {
     const TEST_YML_FILENAME = "/tmp/testfile.yml";
 
-    protected function createTestYaml()
+    /**
+     * Mock a FileResource with YML contents
+     *
+     * @param string $fileContents Optionally override default contents
+     *
+     * @return PHPUnit_Framework_MockObject_MockObject|FileResource
+     */
+    protected function mockYmlFileResource($fileContents = null)
     {
-        $contents = "parameter:
+        $contents = $fileContents ? $fileContents : <<<EOD
+parameter:
   array:
     - a
     - b
   one: 1
   two: 2
-";
+EOD;
 
-        file_put_contents(static::TEST_YML_FILENAME, $contents);
-    }
+        $mock = $this->getMockBuilder(FileResource::class)
+                        ->disableOriginalConstructor()
+                        ->getMock();
 
-    protected function deleteTestYml()
-    {
-        unlink(static::TEST_YML_FILENAME);
+        $mock->expects($this->once())
+                ->method("getRawContents")
+                ->will($this->returnValue($contents));
+
+        return $mock;
     }
 
     public function testFullRun()
     {
-        $this->createTestYaml();
+        $fileProvider = $this->mockYmlFileResource();
 
-        $provider = new YamlProvider(static::TEST_YML_FILENAME);
+        $provider = new YamlProvider($fileProvider);
         $actualValue = $provider->get("parameter.one");
         $this->assertEquals("1", $actualValue);
 
-        $this->deleteTestYml();
-    }
-
-    public function testInaccessibleFileException()
-    {
-        $this->setExpectedException(InaccessibleFileException::class);
-
-        new YamlProvider("/tmp/nonexistant_file.yml");
     }
 
     public function testMissingKeyException()
     {
-        $this->createTestYaml();
+        $fileProvider = $this->mockYmlFileResource();
 
         $this->setExpectedException(MissingKeyException::class);
 
-        $provider = new YamlProvider(static::TEST_YML_FILENAME);
+        $provider = new YamlProvider($fileProvider);
         $provider->get("parameter.three");
-
-        $this->deleteTestYml();
     }
 
     public function testUnexpectedValueException()
     {
-        $this->createTestYaml();
+        $fileProvider = $this->mockYmlFileResource();
 
         $this->setExpectedException(UnexpectedValueException::class);
 
-        $provider = new YamlProvider(static::TEST_YML_FILENAME);
+        $provider = new YamlProvider($fileProvider);
         $provider->get("parameter.array");
 
-        $this->deleteTestYml();
     }
 
     public function testMalformedYamlException()
     {
-        $this->createTestYaml();
+        $fileProvider = $this->mockYmlFileResource("I am not YAML");
 
         $this->setExpectedException(MalformedYamlException::class);
 
-        file_put_contents("/tmp/malformed.yml", "malformedyaml");
-        new YamlProvider("/tmp/malformed.yml");
+        new YamlProvider($fileProvider);
 
-        unlink("/tmp/malformed.yml");
     }
 }
