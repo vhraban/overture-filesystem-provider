@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff5cf2f0da0f7eb35839682918f7ff2f",
+    "hash": "50d41732ba60e2b896a7fbfd8a4f5886",
     "content-hash": "abc278d6d61e64eec8ba69f0e5009a5f",
     "packages": [
         {
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vhraban/Overture.git",
-                "reference": "b8a62077eb60b2bd56de12ea6eaac9dbac120c95"
+                "reference": "6c9ed15c2c7f6f052274179cc045b010b13449ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vhraban/Overture/zipball/b8a62077eb60b2bd56de12ea6eaac9dbac120c95",
-                "reference": "b8a62077eb60b2bd56de12ea6eaac9dbac120c95",
+                "url": "https://api.github.com/repos/vhraban/Overture/zipball/6c9ed15c2c7f6f052274179cc045b010b13449ab",
+                "reference": "6c9ed15c2c7f6f052274179cc045b010b13449ab",
                 "shasum": ""
             },
             "require": {
@@ -50,20 +50,20 @@
                 "configuration",
                 "php"
             ],
-            "time": "2016-02-21 20:20:21"
+            "time": "2016-03-08 17:43:40"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.2",
+            "version": "v2.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "34c8a4b51e751e7ea869b8262f883d008a2b81b8"
+                "reference": "2a4ee40acb880c56f29fb1b8886e7ffe94f3b995"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/34c8a4b51e751e7ea869b8262f883d008a2b81b8",
-                "reference": "34c8a4b51e751e7ea869b8262f883d008a2b81b8",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/2a4ee40acb880c56f29fb1b8886e7ffe94f3b995",
+                "reference": "2a4ee40acb880c56f29fb1b8886e7ffe94f3b995",
                 "shasum": ""
             },
             "require": {
@@ -99,7 +99,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-13 10:28:07"
+            "time": "2016-02-23 07:41:20"
         }
     ],
     "packages-dev": [
@@ -754,16 +754,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.3",
+            "version": "1.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "6e7133793a8e5a5714a551a8324337374be209df"
+                "reference": "dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6e7133793a8e5a5714a551a8324337374be209df",
-                "reference": "6e7133793a8e5a5714a551a8324337374be209df",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf",
+                "reference": "dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf",
                 "shasum": ""
             },
             "require": {
@@ -800,7 +800,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2015-12-02 08:37:27"
+            "time": "2016-02-26 18:40:46"
         },
         {
             "name": "sebastian/exporter",

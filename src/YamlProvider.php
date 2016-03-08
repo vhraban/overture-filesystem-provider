@@ -5,6 +5,7 @@ use Overture\Exception\MissingKeyException;
 use Overture\Exception\UnexpectedValueException;
 use Overture\FileSystemProvider\Exception\MalformedYamlException;
 use Overture\OvertureProviderInterface;
+use Overture\ProviderFoundation\TraversableValueContainer;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
 
